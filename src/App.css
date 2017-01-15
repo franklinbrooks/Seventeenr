@@ -45,6 +45,9 @@
   padding: 15px;
   font-size: 1em;
 }
+button {
+  height: 30px;
+}
 /*.divider {
   display: inline-block;
   clear: both;

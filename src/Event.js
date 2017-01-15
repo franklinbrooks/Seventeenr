@@ -4,7 +4,7 @@ class Event extends Component {
   render() {
     return (
       <div className="event">
-        clasName=event Individual events will display here
+        className=event Individual events will display here
       </div>
     );
   }
