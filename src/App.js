@@ -12,15 +12,15 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      Events: [],
+      Events: {},
       input: '',
       date: '',
-      newEvent: [],
       update: false
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangeDate = this.handleChangeDate.bind(this);
     this.createEvent = this.createEvent.bind(this);
+    this.renderEvents = this.renderEvents.bind(this);
   }
 
   componentDidMount() {
@@ -31,48 +31,72 @@ class App extends Component {
     axios.get('https://seventeenr-38a86.firebaseio.com/.json')
     .then((response) => {
       this.setState(
-        { events: response.data }
+        { Events: response.data }
       );
-      console.log(this.state.events.Sample);  // is currently a string
+      console.log(this.state.Events);
+      this.renderEvents();
     })
     .catch((error) => { console.error(error); });
   }
 
   handleChangeName(event) {
-    let currentInputValue = (event.target.value);
-    console.log("currentInputValue is " + event.target.value) // Set state of input to whatever is in the input
+    console.log("current Input Value is " + event.target.value) // Set state of input to whatever is in the input
     this.setState({
       input: event.target.value
     })
   }
 
   handleChangeDate(event) {
-    console.log(this.state.date);
-    let currentDateValue = (event.target.value);
-    console.log("currentDateValue is " + event.target.value) // Set state of date to whatever is in the input
+    console.log("current Date Value is " + event.target.value) // Set state of date to whatever is in the input
     this.setState({
       date: event.target.value
     })
   }
 
-  createEvent(eventText) {
-    console.log("createEvent!");
-/*    let newEvent = { title: todoText, createdAt: new Date() };
-
+  createEvent(input, date) {
+    console.log("createEvent with " + this.state.input + "  " + this.state.date);
+    let newEvent = { "name": this.state.input, "date": this.state.date };
+    console.log(newEvent);
     axios({
-      url: '/todos.json',
-      baseURL: 'https://todo-31265.firebaseio.com/',
+      url: '/event.json',
+      baseURL: 'https://seventeenr-38a86.firebaseio.com',
       method: "POST",
-      data: newTodo
+      data: newEvent
     }).then((response) => {
-      let todos = this.state.todos;
-      let newTodoId = response.data.name;
-      todos[newTodoId] = newTodo;
-      this.setState({ todos: todos });
+      console.log(response.data);
+      let Events = this.state.Events;
+      console.log('Events currently is ' + this.state.Events);
+      let newEventId = response.data.name;
+      console.log(newEventId);
+      Events[newEventId] = newEvent;
+      this.setState({
+        Events: Events
+      });
+      console.log('Events after submit is ' + this.state.Events);
     }).catch((error) => {
       console.log(error);
-    }); */
+    });
+  }
 
+  renderEvents() {
+    let allEvents = [];
+    for(let eventId in this.state.Events) {
+      let event = this.state.Events[eventId]
+      allEvents.push(
+        <div className="event" key={eventId}>
+          <div className="">
+            <p>{event.name}</p>
+            <p>{event.date}</p>
+          </div>
+        </div>
+      );
+    }
+    console.log('allEvents array is ' + allEvents);
+    return (
+      <div className="event-list">
+        {allEvents}
+      </div>
+    );
   }
 
   render() {
