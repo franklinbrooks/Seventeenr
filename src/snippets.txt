@@ -1,28 +1,9 @@
-/*  updateCurrentEvent() {
-    let id = this.state.currentEvent;  // this should be Firebase key#
-    let currentEvent = this.state.Events[id];
-    currentEvent.name = this.refs.editTodoInput.value;  //  ???
-    axios({
-      url: `/${id}.json`,
-      baseURL: 'https://seventeenr-38a86.firebaseio.com',
-      method: "PATCH",
-      data: currentEvent
-    }).then((response) => {
-      let events = this.state.Events;
-      events[id] = currentEvent;
-      this.setState({
-        Events: events,
-        edit: false
-      });
-    }).catch((error) => {
-      console.log(error);
-    });
-  }*/
 
-/*  renderSelectedTodo() {
-    let content;
-    if (this.state.currentTodo) {
-      let currentTodo = this.state.todos[this.state.currentTodo];
+
+/*  makeEditable() {
+    let content = ;
+    if (this.state.currentEvent) {
+      let currentEvent = this.state.Events[this.state.currentEvent];
       if(!this.state.edit) {
         content =  (
           <div>

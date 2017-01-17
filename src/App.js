@@ -65,7 +65,7 @@ class App extends Component {
       method: "POST",
       data: newEvent
     }).then((response) => {
-      let Events = this.state.Events;  // need spread here??? let events = {...this.state.Events};
+      let Events = this.state.Events;
       let newEventId = response.data.name;  // this is key of database entry
       console.log(newEventId);
       Events[newEventId] = newEvent;
@@ -131,18 +131,20 @@ class App extends Component {
     console.log('Edit! editEvent eventKey is ' + eventKey);
 /*
     const url = 'put url here';
-    axios.patch(url, {
-      // an example of how data can be sent...
-      firstName: this.state.firstName,
-      lastName: this.state.lastName
-    })
-    .then((response) => {
-      console.log(response);
-      this.setState({
-        edit: true,
-        currentEvent: eventId
-      })
+    axios({
+      url: `/${eventKey}.json`,
+      baseURL: 'https://seventeenr-38a86.firebaseio.com',
+      method: "PATCH",
+    }).then((response) => {
+      console.log(response.data);
+      let events = this.state.Events;
 
+      delete events[eventKey]; // fix this!!!
+      this.setState({
+        Events: events,
+        edit: false
+      });
+      this.getEvents();
     })
     .catch((error) => {
       console.log(error);
