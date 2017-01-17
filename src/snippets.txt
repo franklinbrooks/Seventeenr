@@ -48,7 +48,6 @@
 
 
 const PeopleList = ({ people }) => (
-
   <div className="people-list">
     {people.map((person, index) => (
       <p key={index}>
@@ -56,10 +55,11 @@ const PeopleList = ({ people }) => (
       </p>
     ))}
   </div>
-
 );*/
 
+  /*    onChange={(event) => changeCurrentEvent(event)}  */
 
-
+  /* {Object.keys(Events).map((key) => <div key={key} value={key}>{Events[key].name}</div>)}
+      */
 
 

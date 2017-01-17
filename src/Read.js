@@ -3,7 +3,6 @@ import Event from './Event';
 
 class Read extends Component {
   render() {
-    // const { Events } = this.props;
     return (
       <div className='container'>
         <div className="read">
