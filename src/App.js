@@ -36,9 +36,9 @@ class App extends Component {
   getEvents() {
     axios.get('https://seventeenr-38a86.firebaseio.com/.json')
     .then((response) => {
-      this.setState(
-        { Events: response.data }
-      );
+      this.setState({
+        Events: response.data
+      });
       this.renderEvents();
     })
     .catch((error) => { console.error(error); });
@@ -81,18 +81,21 @@ class App extends Component {
   }
 
   renderEvents() {
+    let counter = 0;
     let allEvents = [];
-    let keyArray = Object.keys(this.state.Events);
-    console.log('keyArray = ' + keyArray);
-    for(let date in this.state.Events) {
+    let keyArray = Object.keys(this.state.Events); // example: ["-Kah7k-1glM7qlgV9GU0"]
+    let parents = Object.getOwnPropertyNames(this.state.Events); // same?
+    console.log(parents);  // example: ["-Kah7k-1glM7qlgV9GU0"]
+
+    for(let date in this.state.Events) {  //  this.state.Events["-Kah7k-1glM7qlgV9GU0"].date
+      console.log('******>', parents[counter], counter);
       if(this.state.Events.hasOwnProperty(date)) {
+        let eachKey = this.state.Events[date];  // this should be key of db (string) ie ["-Kah7k-1glM7qlgV9GU0"]
+        console.log('eachKey is currently ' + eachKey); // currently an object
+        console.log('Currently adding ' + eachKey.name + ' : ' + eachKey.date + ' to allEvents array');
 
-        let eachDate = this.state.Events[date];
-        console.log('eachDate is currently ' + eachDate); // currently an object
-
-        console.log('Currently adding ' + eachDate.name + ' : ' + eachDate.date + ' to allEvents array');
         allEvents.push(
-          <div className="event" key={keyArray.date}>
+          <div className="event" key={parents[counter]}>
             <p>
               <button
                 className='delete'
@@ -107,11 +110,11 @@ class App extends Component {
                 onClick={this.editEvent}>EDIT
               </button>
               <br />
-              {eachDate.name}: {eachDate.date}
+              {eachKey.name}: {eachKey.date}
             </p>
           </div>
         );
-
+        counter++;
         this.setState({
           allEvents: allEvents,
         });
@@ -122,15 +125,31 @@ class App extends Component {
   editEvent() {
     console.log('Edit!');
 /*    let eventId = 1;  // update this line with correct identifier
-    this.setState({
-      edit: true,
-      currentEvent: eventId
-    })*/
+
+    const url = 'put url here';
+    axios.patch(url, {
+      // an example of how data can be sent...
+      firstName: this.state.firstName,
+      lastName: this.state.lastName
+    })
+    .then((response) => {
+      console.log(response);
+      this.setState({
+        edit: true,
+        currentEvent: eventId
+      })
+
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+    */
   }
 
   deleteEvent(event) {
     console.log('Delete!');
     let eventKey =  event.target.value;
+    console.log('eventKey is currently ' + eventKey);  //  no value yet
 /*    axios({
       url: `/${eventKey}.json`,
       baseURL: 'https://seventeenr-38a86.firebaseio.com',
@@ -151,7 +170,7 @@ class App extends Component {
     return (
       <BrowserRouter>
       <div className="App">
-          <Header />
+        <Header />
         <div className="main">
 
         <form className='create'>
@@ -182,16 +201,10 @@ class App extends Component {
           </div>
         </div>
 
-
             <Match
               exactly pattern="/"
               component={() =>
                 <Home
-                  handleChange={this.handleChange}
-                  createEvent={this.createEvent}
-                  input={this.state.input}
-                  changeCurrentEvent={this.changeCurrentEvent}
-                  currentEvent={this.currentEvent}
                 />}
             />
             <Match
@@ -214,7 +227,17 @@ export default App;
 {Object.keys(Events).map((key) => <div key={key} value={key}>{Events[key].name}</div>)}
       */
 
+/*    for(let key in keyArray) {  //  this.state.Events["-Kah7k-1glM7qlgV9GU0"].date
+      console.log(keyArray[key]);
+      let eachKey = keyArray[key];
+      let formattedKey = `"${eachKey}"`;
+      console.log('formattedKey = '+ formattedKey); // looks good, but...
+      console.log(this.state.Events[formattedKey]); // this doesn't work
+      console.log(this.state.Events["-Kah7k-1glM7qlgV9GU0"]); // works
 
+      if(this.state.Events[formattedKey].hasOwnProperty(key)) {  //
+        let eachDate = this.state.Events[key];  // this should be key of db (string) ie ["-Kah7k-1glM7qlgV9GU0"]
+*/
 
 
 
