@@ -83,30 +83,34 @@ class App extends Component {
   renderEvents() {
     let counter = 0;
     let allEvents = [];
-    let keyArray = Object.keys(this.state.Events); // example: ["-Kah7k-1glM7qlgV9GU0"]
-    let parents = Object.getOwnPropertyNames(this.state.Events); // same?
+    let parents = Object.getOwnPropertyNames(this.state.Events);
     console.log(parents);  // example: ["-Kah7k-1glM7qlgV9GU0"]
-
     for(let date in this.state.Events) {  //  this.state.Events["-Kah7k-1glM7qlgV9GU0"].date
       console.log('******>', parents[counter], counter);
       if(this.state.Events.hasOwnProperty(date)) {
+
+      /*let myPath = this.state.Events;*/
+      /*let myPath = 'this.state.Events["'+parents[counter]+'"]';*/
+      /*console.log('myPath is ' + myPath.{parents[counter]});*/
+      /*console.log(this.state.Events["-Kah7k-1glM7qlgV9GU0"].date);*/
+
         let eachKey = this.state.Events[date];  // this should be key of db (string) ie ["-Kah7k-1glM7qlgV9GU0"]
-        console.log('eachKey is currently ' + eachKey); // currently an object
+        console.log('eachKey is currently ' + eachKey); // get parent[counter] in here!
         console.log('Currently adding ' + eachKey.name + ' : ' + eachKey.date + ' to allEvents array');
 
-        allEvents.push(
+        allEvents.push( // need to change 92/93/94/112 from {eachKey.name} to {parents[counter]}
           <div className="event" key={parents[counter]}>
             <p>
               <button
                 className='delete'
                 type="button"
-                value={keyArray.date}
+                value={parents[counter]}
                 onClick={this.deleteEvent}>DELETE
               </button>
               <button
                 className='delete'
                 type="button"
-                value={keyArray.date}
+                value={parents[counter]}
                 onClick={this.editEvent}>EDIT
               </button>
               <br />
@@ -122,10 +126,10 @@ class App extends Component {
     }
   }
 
-  editEvent() {
-    console.log('Edit!');
-/*    let eventId = 1;  // update this line with correct identifier
-
+  editEvent(event) {
+    let eventKey =  event.target.value;
+    console.log('Edit! editEvent eventKey is ' + eventKey);
+/*
     const url = 'put url here';
     axios.patch(url, {
       // an example of how data can be sent...
@@ -147,23 +151,24 @@ class App extends Component {
   }
 
   deleteEvent(event) {
-    console.log('Delete!');
     let eventKey =  event.target.value;
-    console.log('eventKey is currently ' + eventKey);  //  no value yet
-/*    axios({
+    console.log('Delete! deleteEvent eventKey is ' + eventKey);  //  no value yet
+    axios({
       url: `/${eventKey}.json`,
       baseURL: 'https://seventeenr-38a86.firebaseio.com',
       method: "DELETE",
     }).then((response) => {
+      console.log(`url for DELETE request is ' + 'https://seventeenr-38a86.firebaseio.com/${eventKey}.json`);
       console.log(response.data);
       let events = this.state.Events;
       delete events[eventKey];
       this.setState({
         Events: events
       });
+    this.getEvents();
     }).catch((error) => {
       console.log(error);
-    });*/
+    });
   }
 
   render() {
