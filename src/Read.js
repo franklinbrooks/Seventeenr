@@ -3,15 +3,27 @@ import Event from './Event';
 
 class Read extends Component {
   render() {
+    // const { Events } = this.props;
     return (
       <div className='container'>
-      <div className="read">
-        className=read Events will display here
-        <Event />
-      </div>
+        <div className="read">
+        </div>
       </div>
     );
   }
 }
 
 export default Read;
+
+/*  <div className="people-list">
+    {people.map((person, index) => (
+      <p key={index}>
+        <Link to={`/people/${index + 1}`}>{person.name}</Link>
+      </p>
+    ))}
+  </div>  */
+
+  /*    onChange={(event) => changeCurrentEvent(event)}  */
+
+  /* {Object.keys(Events).map((key) => <div key={key} value={key}>{Events[key].name}</div>)}
+      */

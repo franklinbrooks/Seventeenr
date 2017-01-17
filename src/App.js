@@ -12,15 +12,20 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      Events: {},
+      Events: [],
       input: '',
       date: '',
-      update: false
+      update: false,
+      allEvents: [],
+      testEvent: [<div className="event"><p>Event name: Event date</p></div>],
+      currentDay: Date.now()
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangeDate = this.handleChangeDate.bind(this);
     this.createEvent = this.createEvent.bind(this);
     this.renderEvents = this.renderEvents.bind(this);
+    this.changeCurrentEvent = this.changeCurrentEvent.bind(this);
+    this.enableEditMode = this.enableEditMode.bind(this);
   }
 
   componentDidMount() {
@@ -33,71 +38,110 @@ class App extends Component {
       this.setState(
         { Events: response.data }
       );
-      console.log(this.state.Events);
       this.renderEvents();
     })
     .catch((error) => { console.error(error); });
   }
 
-  handleChangeName(event) {
-    console.log("current Input Value is " + event.target.value) // Set state of input to whatever is in the input
+  handleChangeName(event) {  // Set state of input to whatever is in the input
     this.setState({
       input: event.target.value
     })
   }
 
-  handleChangeDate(event) {
-    console.log("current Date Value is " + event.target.value) // Set state of date to whatever is in the input
+  handleChangeDate(event) {  // Set state of date to whatever is in the input
     this.setState({
       date: event.target.value
     })
   }
 
-  createEvent(input, date) {
-    console.log("createEvent with " + this.state.input + "  " + this.state.date);
+  createEvent(input, date) {  // Axios POST of new user input (name + date)
+    //  const Events = {...this.state.Events};  need spread here???
+    console.log("createEvent with name: " + this.state.input + " + date: " + this.state.date);
+    // let events = {...this.state.Events};
     let newEvent = { "name": this.state.input, "date": this.state.date };
-    console.log(newEvent);
     axios({
-      url: '/event.json',
+      url: '/.json',
       baseURL: 'https://seventeenr-38a86.firebaseio.com',
       method: "POST",
       data: newEvent
     }).then((response) => {
-      console.log(response.data);
-      let Events = this.state.Events;
-      console.log('Events currently is ' + this.state.Events);
+      let Events = this.state.Events;  // need spread here???
       let newEventId = response.data.name;
       console.log(newEventId);
       Events[newEventId] = newEvent;
       this.setState({
-        Events: Events
+        Events: Events,  // fix setState to update database
+        input: '',      // and reset form
+        date: ''       // for next input
       });
-      console.log('Events after submit is ' + this.state.Events);
+      this.getEvents();
+      console.log(this.state.Events);
     }).catch((error) => {
       console.log(error);
     });
   }
 
   renderEvents() {
-    let allEvents = [];
-    for(let eventId in this.state.Events) {
-      let event = this.state.Events[eventId]
-      allEvents.push(
-        <div className="event" key={eventId}>
-          <div className="">
-            <p>{event.name}</p>
-            <p>{event.date}</p>
+    for(let date in this.state.Events) {
+      if(this.state.Events.hasOwnProperty(date)) {
+        let eachDate = this.state.Events[date]
+        console.log('eachDate is currently ' + eachDate);
+        console.log('Events currently = ' + eachDate.name + ' : ' + eachDate.date);
+        console.log('Inside ' + this.state.allEvents);
+
+/*        this.setState({
+          testEvent: [<p>{eachDate.name}: {eachDate.date}</p>]
+        });
+
+        this.state.allEvents.push(
+          <div className="event" key={eachDate}>
+              <p>{eachDate.name}: {eachDate.date}</p>
           </div>
-        </div>
-      );
+        );*/
+
+      }
+      console.log('Outside ' + this.state.allEvents);
     }
-    console.log('allEvents array is ' + allEvents);
-    return (
+
+      // maybe setState w/ allEvents and pass prop to Read and Event???
+      // Spread operator???
+    return (  // does this need a return? call another function or setState???
       <div className="event-list">
-        {allEvents}
+        {this.state.allEvents}
       </div>
     );
   }
+
+    enableEditMode() {
+    let eventId = 1;  // update this line with correct identifier
+    this.setState({
+      edit: true,
+      currentEvent: eventId
+    })
+  }
+
+  changeCurrentEvent(event) {
+    this.setState({
+      currentEvent: this.state.messages[event.target.value]
+    });
+  }
+
+    /*  deleteEvent(eventId) {
+    axios({
+      url: `/${eventId}.json`,
+      baseURL: 'https://seventeenr-38a86.firebaseio.com',
+      method: "DELETE",
+    }).then((response) => {
+      let events = this.state.Events;
+      delete events[eventId];
+      this.setState({
+        Events: events
+      });
+    }).catch((error) => {
+      console.log(error);
+    });
+  }*/
 
   render() {
     return (
@@ -127,6 +171,16 @@ class App extends Component {
           onClick={this.createEvent}>Create Event</button>
         </form>
 
+
+        <div className='container'>
+          <div className="read">
+          className=read Events will display here
+          {this.state.testEvent}
+          {this.state.allEvents}
+          </div>
+        </div>
+
+
             <Match
               exactly pattern="/"
               component={() =>
@@ -134,6 +188,8 @@ class App extends Component {
                   handleChange={this.handleChange}
                   createEvent={this.createEvent}
                   input={this.state.input}
+                  changeCurrentEvent={this.changeCurrentEvent}
+                  currentEvent={this.currentEvent}
                 />}
             />
             <Match
@@ -152,7 +208,9 @@ class App extends Component {
 
 export default App;
 
-
+/*
+          {Object.keys(Events).map((key) => <div key={key} value={key}>{Events[key].name}</div>)}
+      */
 
 
 

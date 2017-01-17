@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 const Header = () => (
   <div className="App-header">
     <h2>Seventeenr</h2>
-    <p>A simple way to keep track of important upcoming events in your life.</p>
+    <p>A simple way to keep track of 2017's upcoming events in your life.</p>
       <div>
         <Link
           to="/"
