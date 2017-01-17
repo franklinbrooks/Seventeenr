@@ -17,7 +17,6 @@ class App extends Component {
       date: '',
       update: false,
       allEvents: [],
-      testEvent: [],
       currentDay: ''
     };
     this.handleChangeName = this.handleChangeName.bind(this);
@@ -85,11 +84,12 @@ class App extends Component {
     console.log('keyArray = ' + keyArray);
     for(let date in this.state.Events) {
       if(this.state.Events.hasOwnProperty(date)) {
+
         let eachDate = this.state.Events[date];
         console.log('eachDate is currently ' + eachDate); // currently an object
-        console.log('Currently adding ' + eachDate.name + ' : ' + eachDate.date + ' to allEvents array');
 
-        this.state.allEvents.push(
+        console.log('Currently adding ' + eachDate.name + ' : ' + eachDate.date + ' to allEvents array');
+        allEvents.push(
           <div className="event" key={keyArray.date}>
               <p>{eachDate.name}: {eachDate.date}</p>
           </div>
@@ -97,16 +97,9 @@ class App extends Component {
 
         this.setState({
           allEvents: allEvents,
-          testEvent: [<p key={eachDate.date}>{eachDate.name}: {eachDate.date}</p>] // need key to be db key
         });
-
       }
     }
-      // maybe setState w/ allEvents and pass prop to Read and Event???
-      // Spread operator???
-    return // (  // does this need a return? call another function or setState???
-      // <div className="event-list">{this.state.allEvents}</div>
-    // );
   }
 
     enableEditMode() {
