@@ -13,6 +13,7 @@ class App extends Component {
     super();
     this.state = {
       Events: [],
+      key: '',
       input: '',
       date: '',
       update: false,
@@ -22,9 +23,10 @@ class App extends Component {
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangeDate = this.handleChangeDate.bind(this);
     this.createEvent = this.createEvent.bind(this);
+    this.deleteEvent = this.deleteEvent.bind(this);
     this.renderEvents = this.renderEvents.bind(this);
-    this.changeCurrentEvent = this.changeCurrentEvent.bind(this);
-    this.enableEditMode = this.enableEditMode.bind(this);
+    this.editEvent = this.editEvent.bind(this);
+    // this.enableEditMode = this.enableEditMode.bind(this);
   }
 
   componentDidMount() {
@@ -91,7 +93,22 @@ class App extends Component {
         console.log('Currently adding ' + eachDate.name + ' : ' + eachDate.date + ' to allEvents array');
         allEvents.push(
           <div className="event" key={keyArray.date}>
-              <p>{eachDate.name}: {eachDate.date}</p>
+            <p>
+              <button
+                className='delete'
+                type="button"
+                value={keyArray.date}
+                onClick={this.deleteEvent}>DELETE
+              </button>
+              <button
+                className='delete'
+                type="button"
+                value={keyArray.date}
+                onClick={this.editEvent}>EDIT
+              </button>
+              <br />
+              {eachDate.name}: {eachDate.date}
+            </p>
           </div>
         );
 
@@ -102,35 +119,33 @@ class App extends Component {
     }
   }
 
-    enableEditMode() {
-    let eventId = 1;  // update this line with correct identifier
+  editEvent() {
+    console.log('Edit!');
+/*    let eventId = 1;  // update this line with correct identifier
     this.setState({
       edit: true,
       currentEvent: eventId
-    })
+    })*/
   }
 
-  changeCurrentEvent(event) {
-    this.setState({
-      currentEvent: this.state.messages[event.target.value]
-    });
-  }
-
-    /*  deleteEvent(eventId) {
-    axios({
-      url: `/${eventId}.json`,
+  deleteEvent(event) {
+    console.log('Delete!');
+    let eventKey =  event.target.value;
+/*    axios({
+      url: `/${eventKey}.json`,
       baseURL: 'https://seventeenr-38a86.firebaseio.com',
       method: "DELETE",
     }).then((response) => {
+      console.log(response.data);
       let events = this.state.Events;
-      delete events[eventId];
+      delete events[eventKey];
       this.setState({
         Events: events
       });
     }).catch((error) => {
       console.log(error);
-    });
-  }*/
+    });*/
+  }
 
   render() {
     return (
@@ -196,7 +211,7 @@ class App extends Component {
 export default App;
 
 /*
-          {Object.keys(Events).map((key) => <div key={key} value={key}>{Events[key].name}</div>)}
+{Object.keys(Events).map((key) => <div key={key} value={key}>{Events[key].name}</div>)}
       */
 
 

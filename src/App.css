@@ -61,6 +61,10 @@ button {
   border: 2px solid red;
   font-size: 1em;
 }
+.delete {
+  float: right;
+  margin-right: 20px;
+}
 
 footer {
   width: 100%;
