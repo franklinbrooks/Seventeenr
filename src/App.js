@@ -21,7 +21,7 @@ class App extends Component {
       edit: false,
       selectedEvent: '',
       allEvents: [],
-      currentDay: '' // set to new Date() ??
+      currentDate: new Date()
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangeDate = this.handleChangeDate.bind(this);
@@ -85,8 +85,8 @@ class App extends Component {
     });
   }
 
-  renderEvents() {
-    // let counter = 0;
+renderEvents() {
+    console.log(this.state.currentDate);
     let allEvents = [];
     // let parents = Object.getOwnPropertyNames(this.state.Events);  // string keys: example: ["-Kah7k-1glM7qlgV9GU0"]
     //console.log('******>', parents[counter], counter);
@@ -253,6 +253,11 @@ class App extends Component {
               exactly pattern="/"
               component={() =>
                 <Home
+                  input={this.state.input}
+                  handleChangeName={this.handleChangeName}
+                  date={this.state.date}
+                  createEvent={this.createEvent}
+                  renderEvents={this.renderEvents}
                 />}
             />
             <Match
@@ -270,10 +275,7 @@ class App extends Component {
 }
 
 export default App;
-/*
-        <div className='edit'>
-        <div className='editBox'>stuff</div>
-        </div>*/
+
 
 
 

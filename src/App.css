@@ -18,35 +18,22 @@
 .App-header a {
   color: white;
 }
-/*.edit {
-  margin: 0 auto;
-  z-index: 2;
-  opacity: .5;
-  height: 1000px;
-  width: 2000px;
-}
-.editBox {
-  position: fixed;
-  margin: 0 auto;
-  z-index: 3;
-  top: 200px;
-  width: 400px;
-  height: 300px;
-  background-color: green;
-}*/
 
 .main {
   margin: 0 auto;
   width: 95%;
 }
+
 .home {
   display: none;
   margin: 0 auto;
   width: 99%;
 }
+
 .divider {
   display: none;
 }
+
 .container {
   width: 100%;
   display: inline-block;
@@ -59,21 +46,25 @@
   height: 100%;
   border: 2px solid red;
 }
+
 .textbox {
   height: 30px;
   width: 150px;
   padding: 15px;
   font-size: 1em;
 }
+
 button {
   height: 30px;
 }
+
 .read {
   margin: 0 auto;
   display: inline-block;
   width: 95%;
   border: 2px solid red;
 }
+
 .event p {
   display: block;
   margin: 0 auto;
@@ -81,6 +72,7 @@ button {
   border: 2px solid red;
   font-size: 1em;
 }
+
 .delete {
   float: right;
   margin-right: 20px;
@@ -89,18 +81,18 @@ button {
 footer {
   width: 100%;
   height: 70px;
-/*  position: fixed;
-  bottom: 0px;
-  left: 0px;*/
   background-color: white;
 }
+
 p {
   font-size:.75em;
 }
+
 a {
   color:#000;
   text-decoration:none;
 }
+
 .red {
   color: red;
 }
