@@ -168,20 +168,20 @@ class App extends Component {
   }
 
   editEvent(input, date) {
-    // let eventKey = this.state.selectedEvent;
-    // let updatedEvent = { "name": this.state.updatedInput, "date": this.state.updatedDate };
-/*  axios({
+    let eventKey = this.state.selectedEvent;
+    let updatedEvent = { "name": this.state.updatedInput, "date": this.state.updatedDate };
+  axios({
       url: `/${eventKey}.json`,
       baseURL: 'https://seventeenr-38a86.firebaseio.com',
       method: "PATCH",
       data: updatedEvent
     }).then((response) => {
       console.log(response.data);
-      // let events = this.state.Events;   // set text + date of eventKey to input and date!!!
       this.setState({
-        Events: events,
+        input: '',
+        date: '',
         edit: false,
-        currentEvent: '',
+        selectedEvent: '',
         updatedInput: '',      //  reset form
         updatedDate: ''       // for next input
       });
@@ -190,7 +190,7 @@ class App extends Component {
     .catch((error) => {
       console.log(error);
     });
-    */
+
   }
 
   deleteEvent(event) {
