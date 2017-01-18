@@ -72,14 +72,14 @@ This project was developed as part of the Web Development Immersive program at G
 - User can focus on an Event in the Event List, which becomes editable. User can click 'DELETE' to remove Event from Event List.
 
 ### Improvements on MVP
+- Use of React Router for Single-Page-Application build
 - CSS styling to improve UX
-- Events are ordered in chronological order.
-- Events are color-coded green for events more than 7 days away, yellow for events less than 7 days away, and red for past date events.
-- User CREATES a new event by selecting a holiday from the Select dropdown menu, which pre-populates the 'Add Event" text box and date picker.  New Event appears in Event List.
 
 ### Possible Future Improvements 
   1. Addition of User Authentication to allow multiple users to create separate lists on the server.
-
+  1. Events are ordered in chronological order.
+  1. Events are color-coded green for events more than 7 days away, yellow for events less than 7 days away, and red for past date events.
+  1. User CREATES a new event by selecting a holiday from the Select dropdown menu, which pre-populates the 'Add Event" text box and date picker.  New Event appears in Event List.
 
 ### Author
   [Franklin Brooks](http://www.franklinchristopherbrooks.com) 

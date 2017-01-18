@@ -1,46 +1,76 @@
 
 
 /*  makeEditable() {
-    let content = ;
+    let eventKey =  event.target.value;
+    this.setState({
+      selectedEvent: eventKey
+    });
+    console.log('The editEvent eventKey inside makeEditable is ' + eventKey);
+    console.log('selectedEvent is ' + this.state.selectedEvent);
+    console.log('Edit inside makeEditable is ' + this.state.edit);
+
+
     if (this.state.currentEvent) {
-      let currentEvent = this.state.Events[this.state.currentEvent];
-      if(!this.state.edit) {
+      let currentEvent = this.state.allEvents[this.state.currentEvent];
+      if(this.state.edit === false) {  // remove
         content =  (
-          <div>
-            <div className="d-flex justify-content-end mb-3">
-              <button onClick={this.enableEditMode}>Edit</button>
-            </div>
-            <h1>{currentTodo.title}</h1>
+
+          <div className="event" key={parents[counter]}>
+            <p>
+              <button
+                className='delete'
+                type="button"
+                value={parents[counter]}
+                onClick={this.deleteEvent}>DELETE
+              </button>
+
+              <button
+                className='delete'
+                type="button"
+                value={parents[counter]}
+                onClick={this.makeEditable}>EDIT
+              </button>
+              <br />
+              {eachKey.name}: {eachKey.date}
+            </p>
           </div>
         );
+
       } else {
+
         content =  (
-          <div>
-            <div className="d-flex justify-content-end mb-3">
-              <button onClick={this.updateCurrentTodo}>Save</button>
-            </div>
-            <input className="w-100" defaultValue={currentTodo.title} ref="editTodoInput" />
+
+          <div className="event" key={parents[counter]}>
+            <p>
+              <button
+                className='delete'
+                type="button"
+                value={parents[counter]}
+                onClick={this.editEvent}>SAVE
+              </button>
+              <br />
+              <input
+                className="textbox"
+                name="name"
+                type="text"
+                value={this.state.input}
+                onChange={this.handleChangeName}
+              />
+              <input
+                className="textbox"
+                name="date"
+                type="date"
+                value={this.state.date}
+                onChange={this.handleChangeDate}
+              />
+            </p>
           </div>
+
         );
       }
     }
     return content;
   }*/
 
-
-const PeopleList = ({ people }) => (
-  <div className="people-list">
-    {people.map((person, index) => (
-      <p key={index}>
-        <Link to={`/people/${index + 1}`}>{person.name}</Link>
-      </p>
-    ))}
-  </div>
-);*/
-
-  /*    onChange={(event) => changeCurrentEvent(event)}  */
-
-  /* {Object.keys(Events).map((key) => <div key={key} value={key}>{Events[key].name}</div>)}
-      */
 
 

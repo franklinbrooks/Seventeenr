@@ -16,9 +16,10 @@ class App extends Component {
       key: '',
       input: '',
       date: '',
-      update: false,
+      edit: false,
+      selectedEvent: null,
       allEvents: [],
-      currentDay: ''
+      currentDay: '' // set to new Date() ??
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangeDate = this.handleChangeDate.bind(this);
@@ -26,7 +27,7 @@ class App extends Component {
     this.deleteEvent = this.deleteEvent.bind(this);
     this.renderEvents = this.renderEvents.bind(this);
     this.editEvent = this.editEvent.bind(this);
-    // this.enableEditMode = this.enableEditMode.bind(this);
+    this.makeEditable = this.makeEditable.bind(this);
   }
 
   componentDidMount() {
@@ -39,12 +40,12 @@ class App extends Component {
       this.setState({
         Events: response.data
       });
-      this.renderEvents();
+      // this.renderEvents();
     })
     .catch((error) => { console.error(error); });
   }
 
-  handleChangeName(event) {  // Set state of input to whatever is in the input
+  handleChangeName(event) {  // Set state of name to whatever is in the input
     this.setState({
       input: event.target.value
     })
@@ -83,66 +84,75 @@ class App extends Component {
   renderEvents() {
     let counter = 0;
     let allEvents = [];
-    let parents = Object.getOwnPropertyNames(this.state.Events);
-    console.log(parents);  // example: ["-Kah7k-1glM7qlgV9GU0"]
-    for(let date in this.state.Events) {  //  this.state.Events["-Kah7k-1glM7qlgV9GU0"].date
-      console.log('******>', parents[counter], counter);
-      if(this.state.Events.hasOwnProperty(date)) {
+    let parents = Object.getOwnPropertyNames(this.state.Events);  // string keys: example: ["-Kah7k-1glM7qlgV9GU0"]
+    //console.log('******>', parents[counter], counter);
+    for(let event in this.state.Events) {  // actual Objects: example: ["-Kah76d2UUM9_ErGKHIW"])
+      console.log('event is ' + event);
+      //if(event.hasOwnProperty.call(date)) { // need a property that works
+      let eachKey = this.state.Events[event];  // Object w/ 2 properties, date & name
+      console.log('Currently adding ' + this.state.Events[event].date + ' : ' + this.state.Events[event].name + ' to allEvents array');
+/*          if (parent === this.state.selectedEvent) {
+            allEvents.push(<div>SELECTED</div>);
+          } else {  */
+            allEvents.push(
+              <div className="event" key={parents[counter]}>
+              <p>
+                <button
+                  className='delete'
+                  type="button"
+                  value={parents[counter]}
+                  onClick={this.deleteEvent}>DELETE
+                </button>
+                <button
+                  className='delete'
+                  type="button"
+                  value={parents[counter]}
+                  onClick={this.makeEditable}>EDIT
+                </button>
+                <br />
+                {eachKey.name}: {eachKey.date}
+              </p>
+            </div>
+            )
+       /*   }  */
 
-      /*let myPath = this.state.Events;*/
-      /*let myPath = 'this.state.Events["'+parents[counter]+'"]';*/
-      /*console.log('myPath is ' + myPath.{parents[counter]});*/
-      /*console.log(this.state.Events["-Kah7k-1glM7qlgV9GU0"].date);*/
-
-        let eachKey = this.state.Events[date];  // this should be key of db (string) ie ["-Kah7k-1glM7qlgV9GU0"]
-        console.log('eachKey is currently ' + eachKey); // get parent[counter] in here!
-        console.log('Currently adding ' + eachKey.name + ' : ' + eachKey.date + ' to allEvents array');
-
-        allEvents.push( // need to change 92/93/94/112 from {eachKey.name} to {parents[counter]}
-          <div className="event" key={parents[counter]}>
-            <p>
-              <button
-                className='delete'
-                type="button"
-                value={parents[counter]}
-                onClick={this.deleteEvent}>DELETE
-              </button>
-              <button
-                className='delete'
-                type="button"
-                value={parents[counter]}
-                onClick={this.editEvent}>EDIT
-              </button>
-              <br />
-              {eachKey.name}: {eachKey.date}
-            </p>
-          </div>
-        );
-        counter++;
-        this.setState({
-          allEvents: allEvents,
-        });
-      }
+    /*  }  */
+      counter++;
     }
+    return allEvents;
   }
 
-  editEvent(event) {
+  makeEditable(event) {
     let eventKey =  event.target.value;
-    console.log('Edit! editEvent eventKey is ' + eventKey);
-/*
-    const url = 'put url here';
-    axios({
+    this.setState({
+      edit: true,
+      selectedEvent: eventKey
+    });
+    // console.log('The eventKey inside makeEditable is ' + eventKey);
+    // console.log('selectedEvent is ' + this.state.selectedEvent);
+    // console.log('Edit inside makeEditable is ' + this.state.edit);
+    // this.renderEvents();
+  }
+
+  editEvent(input, date) {
+    // let updatedEvent = { "name": this.state.input, "date": this.state.date };
+/*  axios({
       url: `/${eventKey}.json`,
       baseURL: 'https://seventeenr-38a86.firebaseio.com',
       method: "PATCH",
+      data: updatedEvent
     }).then((response) => {
       console.log(response.data);
       let events = this.state.Events;
 
-      delete events[eventKey]; // fix this!!!
+      // set text + date of eventKey to input and date!!!
+
       this.setState({
         Events: events,
-        edit: false
+        edit: false,
+        currentEvent: '',
+        input: '',      //  reset form
+        date: ''       // for next input
       });
       this.getEvents();
     })
@@ -204,7 +214,7 @@ class App extends Component {
 
         <div className='container'>
           <div className="read">
-          {this.state.allEvents}
+          {this.renderEvents()}
           </div>
         </div>
 
@@ -229,22 +239,10 @@ class App extends Component {
 }
 
 export default App;
-
 /*
-{Object.keys(Events).map((key) => <div key={key} value={key}>{Events[key].name}</div>)}
-      */
-
-/*    for(let key in keyArray) {  //  this.state.Events["-Kah7k-1glM7qlgV9GU0"].date
-      console.log(keyArray[key]);
-      let eachKey = keyArray[key];
-      let formattedKey = `"${eachKey}"`;
-      console.log('formattedKey = '+ formattedKey); // looks good, but...
-      console.log(this.state.Events[formattedKey]); // this doesn't work
-      console.log(this.state.Events["-Kah7k-1glM7qlgV9GU0"]); // works
-
-      if(this.state.Events[formattedKey].hasOwnProperty(key)) {  //
-        let eachDate = this.state.Events[key];  // this should be key of db (string) ie ["-Kah7k-1glM7qlgV9GU0"]
-*/
+        <div className='edit'>
+        <div className='editBox'>stuff</div>
+        </div>*/
 
 
 
