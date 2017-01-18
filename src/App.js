@@ -16,8 +16,10 @@ class App extends Component {
       key: '',
       input: '',
       date: '',
+      updatedInput: '',
+      updatedDate: '',
       edit: false,
-      selectedEvent: null,
+      selectedEvent: '',
       allEvents: [],
       currentDay: '' // set to new Date() ??
     };
@@ -47,13 +49,15 @@ class App extends Component {
 
   handleChangeName(event) {  // Set state of name to whatever is in the input
     this.setState({
-      input: event.target.value
+      input: event.target.value,
+      updatedInput: event.target.value
     })
   }
 
   handleChangeDate(event) {  // Set state of date to whatever is in the input
     this.setState({
-      date: event.target.value
+      date: event.target.value,
+      updatedDate: event.target.value
     })
   }
 
@@ -71,8 +75,8 @@ class App extends Component {
       console.log(newEventId);
       Events[newEventId] = newEvent;
       this.setState({
-        Events: Events,  // fix setState to update database
-        input: '',      // and reset form
+        Events: Events,  // updates state
+        input: '',      // and resets form
         date: ''       // for next input
       });
       this.getEvents();
@@ -82,31 +86,57 @@ class App extends Component {
   }
 
   renderEvents() {
-    let counter = 0;
+    // let counter = 0;
     let allEvents = [];
-    let parents = Object.getOwnPropertyNames(this.state.Events);  // string keys: example: ["-Kah7k-1glM7qlgV9GU0"]
+    // let parents = Object.getOwnPropertyNames(this.state.Events);  // string keys: example: ["-Kah7k-1glM7qlgV9GU0"]
     //console.log('******>', parents[counter], counter);
     for(let event in this.state.Events) {  // actual Objects: example: ["-Kah76d2UUM9_ErGKHIW"])
-      console.log('event is ' + event);
+      //console.log('event is ' + event);
       //if(event.hasOwnProperty.call(date)) { // need a property that works
       let eachKey = this.state.Events[event];  // Object w/ 2 properties, date & name
-      console.log('Currently adding ' + this.state.Events[event].date + ' : ' + this.state.Events[event].name + ' to allEvents array');
-/*          if (parent === this.state.selectedEvent) {
-            allEvents.push(<div>SELECTED</div>);
-          } else {  */
+      //console.log('Currently adding ' + this.state.Events[event].date + ' : ' + this.state.Events[event].name + ' to allEvents array');
+          if (event === this.state.selectedEvent) {
             allEvents.push(
-              <div className="event" key={parents[counter]}>
+          <div className="event" key={event}>
+            <p>
+              <button
+                className='delete'
+                type="button"
+                value={event}
+                onClick={this.editEvent}>SAVE
+              </button>
+
+              <input
+                className="textbox"
+                name="name"
+                type="text"
+                value={this.state.updatedInput}
+                onChange={this.handleChangeName}
+              />
+              <input
+                className="textbox"
+                name="date"
+                type="date"
+                value={this.state.updatedDate}
+                onChange={this.handleChangeDate}
+              />
+            </p>
+          </div>
+            );
+          } else {
+            allEvents.push(
+              <div className="event" key={event}>
               <p>
                 <button
                   className='delete'
                   type="button"
-                  value={parents[counter]}
+                  value={event}
                   onClick={this.deleteEvent}>DELETE
                 </button>
                 <button
                   className='delete'
                   type="button"
-                  value={parents[counter]}
+                  value={event}
                   onClick={this.makeEditable}>EDIT
                 </button>
                 <br />
@@ -114,28 +144,32 @@ class App extends Component {
               </p>
             </div>
             )
-       /*   }  */
+          }
 
     /*  }  */
-      counter++;
+      // counter++;
     }
     return allEvents;
   }
 
   makeEditable(event) {
-    let eventKey =  event.target.value;
+    let selectedEventKey =  event.target.value;
+    console.log('selectedEvent will be ' + selectedEventKey);
+    let selectedEventName = this.state.Events[selectedEventKey].name;
+    console.log(selectedEventName);
+    let selectedEventDate = this.state.Events[selectedEventKey].date;
+    console.log(selectedEventDate);
     this.setState({
       edit: true,
-      selectedEvent: eventKey
+      selectedEvent: selectedEventKey,
+      updatedInput: selectedEventName,
+      updatedDate: selectedEventDate
     });
-    // console.log('The eventKey inside makeEditable is ' + eventKey);
-    // console.log('selectedEvent is ' + this.state.selectedEvent);
-    // console.log('Edit inside makeEditable is ' + this.state.edit);
-    // this.renderEvents();
   }
 
   editEvent(input, date) {
-    // let updatedEvent = { "name": this.state.input, "date": this.state.date };
+    // let eventKey = this.state.selectedEvent;
+    // let updatedEvent = { "name": this.state.updatedInput, "date": this.state.updatedDate };
 /*  axios({
       url: `/${eventKey}.json`,
       baseURL: 'https://seventeenr-38a86.firebaseio.com',
@@ -143,16 +177,13 @@ class App extends Component {
       data: updatedEvent
     }).then((response) => {
       console.log(response.data);
-      let events = this.state.Events;
-
-      // set text + date of eventKey to input and date!!!
-
+      // let events = this.state.Events;   // set text + date of eventKey to input and date!!!
       this.setState({
         Events: events,
         edit: false,
         currentEvent: '',
-        input: '',      //  reset form
-        date: ''       // for next input
+        updatedInput: '',      //  reset form
+        updatedDate: ''       // for next input
       });
       this.getEvents();
     })

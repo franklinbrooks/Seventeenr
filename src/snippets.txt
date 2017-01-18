@@ -1,76 +1,52 @@
 
+              <div className="event" key={event}>
+              <p>
+                <button
+                  className='delete'
+                  type="button"
+                  value={event}
+                  onClick={this.deleteEvent}>DELETE
+                </button>
 
-/*  makeEditable() {
-    let eventKey =  event.target.value;
-    this.setState({
-      selectedEvent: eventKey
-    });
-    console.log('The editEvent eventKey inside makeEditable is ' + eventKey);
-    console.log('selectedEvent is ' + this.state.selectedEvent);
-    console.log('Edit inside makeEditable is ' + this.state.edit);
+                <button
+                  className='delete'
+                  type="button"
+                  value={event}
+                  onClick={this.makeEditable}>EDIT
+                </button>
+                <br />
+                {eachKey.name}: {eachKey.date}
+              </p>
+            </div>
 
 
-    if (this.state.currentEvent) {
-      let currentEvent = this.state.allEvents[this.state.currentEvent];
-      if(this.state.edit === false) {  // remove
-        content =  (
-
-          <div className="event" key={parents[counter]}>
+          <div className="event" key={event}>
             <p>
               <button
                 className='delete'
                 type="button"
-                value={parents[counter]}
-                onClick={this.deleteEvent}>DELETE
-              </button>
-
-              <button
-                className='delete'
-                type="button"
-                value={parents[counter]}
-                onClick={this.makeEditable}>EDIT
-              </button>
-              <br />
-              {eachKey.name}: {eachKey.date}
-            </p>
-          </div>
-        );
-
-      } else {
-
-        content =  (
-
-          <div className="event" key={parents[counter]}>
-            <p>
-              <button
-                className='delete'
-                type="button"
-                value={parents[counter]}
+                value={event}
                 onClick={this.editEvent}>SAVE
               </button>
-              <br />
+
               <input
                 className="textbox"
                 name="name"
                 type="text"
-                value={this.state.input}
+                value={this.state.updatedInput}
                 onChange={this.handleChangeName}
               />
               <input
                 className="textbox"
                 name="date"
                 type="date"
-                value={this.state.date}
+                value={this.state.updatedDate}
                 onChange={this.handleChangeDate}
               />
             </p>
           </div>
 
-        );
-      }
-    }
-    return content;
-  }*/
+
 
 
 
