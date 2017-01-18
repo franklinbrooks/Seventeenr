@@ -7,6 +7,13 @@ import Footer from './Footer';
 import About from './About';
 import Home from './Home';
 import NotFound from './NotFound';
+import Spring from '../images/spring.jpg';
+
+var sectionStyle = {
+/*  width: "100%",*/
+  height: "800px",
+  backgroundImage: "url(" + Spring + ")"
+};
 
 class App extends Component {
   constructor() {
@@ -217,7 +224,7 @@ renderEvents() {
   render() {
     return (
       <BrowserRouter>
-      <div className="App">
+      <div className="App" style={ sectionStyle }>
         <Header />
         <div className="main">
 
