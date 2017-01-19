@@ -80,7 +80,6 @@ class App extends Component {
     }).then((response) => {
       let Events = this.state.Events;
       let newEventId = response.data.name;  // this is key of database entry
-      console.log(newEventId);
       Events[newEventId] = newEvent;
       this.setState({
         Events: Events,  // updates state
@@ -154,9 +153,6 @@ renderEvents() {
             </div>
             )
           }
-
-    /*  }  */
-      // counter++;
     }
     return allEvents;
   }

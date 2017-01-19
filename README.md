@@ -1,11 +1,10 @@
 # Seventeenr Scheduling Planner App
 
-[Link to Trello:](https://trello.com/b/madxhpLU/seventeenr)
-
 ###My implementation of project
   ![Seventeenr Screenshot](https://github.com/franklinbrooks/Seventeenr/blob/master/images/screenshot.png) 
 
 [Link to Live Site:](http://typesetter-sylvia-16076.bitballoon.com/)
+[Link to Repo:](https://github.com/franklinbrooks/Seventeenr)
 [Link to Trello:](https://trello.com/b/madxhpLU/seventeenr)
 
 ### Wireframes for project: 
@@ -52,7 +51,7 @@ Facebook is great about reminding you of birthdays - the same day.  And what abo
 Seventeenr is a single-page desktop app to help you keep track of holidays and other events in 2017. It uses Axios API calls to a Firebase server which allow the user full CRUD functionality over a collection of events which will persist until the user deletes them.
 
 ### Contributing
-This project was developed as part of the Web Development Immersive program at General Assembly in NYC, January 2017. My mentor for this build is [Patrick Andre](patrick.andre@generalassemb.ly). Thanks, Patrick!
+This project was developed as part of the Web Development Immersive program at General Assembly in NYC, January 2017. My mentor for this build was [Patrick Andre](patrick.andre@generalassemb.ly). Thanks, Patrick!
 
 ### Minimum Viable Product
 - Wireframes, timeline, and MVP description to squad leader via GitHub README markdown
