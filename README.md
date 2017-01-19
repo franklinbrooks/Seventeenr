@@ -3,9 +3,9 @@
 [Link to Trello:](https://trello.com/b/madxhpLU/seventeenr)
 
 ###My implementation of project
-  ![Seventeenr Screenshot]( ) 
+  ![Seventeenr Screenshot](https://github.com/franklinbrooks/Seventeenr/blob/master/images/screenshot.png) 
 
-[Link to Live Site:]()
+[Link to Live Site:](http://typesetter-sylvia-16076.bitballoon.com/)
 [Link to Trello:](https://trello.com/b/madxhpLU/seventeenr)
 
 ### Wireframes for project: 
@@ -21,35 +21,31 @@
 - React Router
 - Axios 
 
-<!-- ### Code Example quote
+### Code Example quote
 ```javascript
-let checkIt = function() {
-  const gameBoard = document.getElementById("game");
-  let target = document.getElementById('target1');
-  let friendly = document.getElementById('satellite');
-  el = target.getBoundingClientRect();
-  la = friendly.getBoundingClientRect();
-  let left = el.left + window.scrollX;
-  let laLeft = la.left + window.scrollX;
-  let top = el.top + window.scrollY;
-  let laTop = la.top + window.scrollY;
-  console.log(`laLeft is ${laLeft} and laTop is ${laTop}`);
-  if ((left > 582 && left < 622) && (top > 230 && top < 270)) {
-    score++;
-    enemies--;
-    outputNewMessages();
-    gameBoard.removeChild(target);
-    explodeIt();
-    determineIt();
-  } else if ((laLeft > 600 && laLeft < 650) && (laTop > 225 && laTop < 265)) {
-    satellites = satellites - 1;
-    outputNewMessages();
-    gameBoard.removeChild(friendly);
-    explodeIt();
-    determineIt();
+  createEvent(input, date) {  // Axios POST of new user input (name + date)
+    console.log("createEvent with name: " + this.state.input + " + date: " + this.state.date);
+    let newEvent = { "name": this.state.input, "date": this.state.date };
+    axios({
+      url: '/.json',
+      baseURL: 'https://seventeenr-38a86.firebaseio.com',
+      method: "POST",
+      data: newEvent
+    }).then((response) => {
+      let Events = this.state.Events;
+      let newEventId = response.data.name;  // this is key of database entry
+      Events[newEventId] = newEvent;
+      this.setState({
+        Events: Events,  // updates state
+        input: '',      // and resets form
+        date: ''       // for next input
+      });
+      this.getEvents();
+    }).catch((error) => {
+      console.log(error);
+    });
   }
-}
-```` -->
+```` 
 ### Build Strategy
 Facebook is great about reminding you of birthdays - the same day.  And what about all of your friends and family who don't use FB?  Wouldn't it be great to see all your events on the horizon? And what if you are not able to complete your plans for that day? If you track of your events on Google Calendar, they do not persist beyond their scheduled date.
 
