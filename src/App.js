@@ -8,11 +8,12 @@ import About from './About';
 import Home from './Home';
 import NotFound from './NotFound';
 import Spring from '../images/spring.jpg';
+import Autumn from '../images/autumn.jpg';
 
 var sectionStyle = {
 /*  width: "100%",*/
-  height: "800px",
-  backgroundImage: "url(" + Spring + ")"
+  height: "1000px",
+  backgroundImage: "url(" + Autumn + ")"
 };
 
 class App extends Component {
@@ -117,6 +118,7 @@ renderEvents() {
                 className="textbox"
                 name="name"
                 type="text"
+                autofocus="autofocus"
                 value={this.state.updatedInput}
                 onChange={this.handleChangeName}
               />
@@ -226,13 +228,29 @@ renderEvents() {
       <BrowserRouter>
       <div className="App" style={ sectionStyle }>
         <Header />
+
+            <Match
+              exactly pattern="/"
+              component={() =>
+                <Home
+                  input={this.state.input}
+                  handleChangeName={this.handleChangeName}
+                  date={this.state.date}
+                  createEvent={this.createEvent}
+                  renderEvents={this.renderEvents}
+                />}
+            />
+            <br />
+            <br />
+            <br />
+
         <div className="main">
 
         <form className='create'>
           <input
             className="textbox"
             name="name"
-            placeholder='Add an event'
+            placeholder='Add an event...'
             type="text"
             value={this.state.input}
             onChange={this.handleChangeName}
@@ -257,20 +275,10 @@ renderEvents() {
         </div>
 
             <Match
-              exactly pattern="/"
-              component={() =>
-                <Home
-                  input={this.state.input}
-                  handleChangeName={this.handleChangeName}
-                  date={this.state.date}
-                  createEvent={this.createEvent}
-                  renderEvents={this.renderEvents}
-                />}
-            />
-            <Match
               exactly pattern="/About"
               component={About}
             />
+
             <Miss component={NotFound}
             />
         </div>

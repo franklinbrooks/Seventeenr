@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 const Header = () => (
   <div className="App-header">
-    <h2>Seventeenr</h2>
+    <h1>Seventeenr</h1>
     <p>A simple way to keep track of 2017's upcoming events.</p>
       <div>
         <Link

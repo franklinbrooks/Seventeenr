@@ -64,7 +64,7 @@ This project was developed as part of the Web Development Immersive program at G
 - Live app hosted on web
 - Firebase database created
 - Use CREATE-REACT-APP to build out file structure (Min TWO components, NOT including App.js)
-- Show effort in styling, including FLEXBOX
+- Show effort in styling, including FLEXBOX (note: some styling for mobile achieved with Flexbox)
 - Use AXIOS only to make all RESTful requests.
 - User CREATES a new event by typing in the "Add Event" text box, then picking a date.  New Event appears in Event List.
 - User can focus on an Event in the Event List, which becomes editable. User can modify text or date, and click 'UPDATE' to return modified Event to Event List.

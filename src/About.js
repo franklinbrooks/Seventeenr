@@ -1,7 +1,7 @@
 import React from 'react';
 
 const About = () => (
-  <div className="someclass">
+  <p className="about">
     This is an about page rendered with ReactRouter.
     <br />
     <br />
@@ -18,7 +18,7 @@ const About = () => (
 Seventeenr is a single-page desktop app to help you keep track of holidays and other events in 2017. It uses Axios API calls to a Firebase server which allow the user full CRUD functionality over a collection of events which will persist until the user deletes them.
 <br />
 <br />
-  </div>
+  </p>
 );
 
 export default About;
